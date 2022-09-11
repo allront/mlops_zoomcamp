@@ -17,41 +17,93 @@ The main focus of the project is to make a process for **end-to-end model lifecy
 
 <img src="https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Architecture.JPG">
 
-## Dataset
+MLops architecture for the project consists of three layers: for machine learning model development, governance and execution.
+The technologies used for each layer are described bellow
+
+### Development layer
+Development layer is used for aquiring the data for the model and model training.
+EDA and Hyper parameter tuning is out of the scope of the project.
+
+#### Yandex Cloud BLOB storage
+Training data is placed into cloud storage, and accessed each time training is runned.
+Downoladed data is compared to expeted result viaasserting function.
+
+#### Yandex Catboost
+<img src=https://i0.wp.com/neptune.ai/wp-content/uploads/When-to-Choose-CatBoost-Over-XGBoost-or-LightGBM-Practical-Guide_13.png>
+For model development [Catboost](https://catboost.ai/) is chosen.
+CatBoost uses ordered target encoding, which essentially allows to keep the feature/column in its original state, allowing to collaborate with ml engineers and software engineers more easily. 
+Thus, ther is no reason to worry about matching one-hot-encodings of several features, and interpret the features as to how they were intended. 
+Not only that, but this encoding allows for more important feature importance.
+
+Here is the CatBoost space highlighted:
+* No one-hot-encodings/sparse dataframe
+* Keeps original format of dataframe, making collaboration easier as well
+* Training is faster
+* Categorical features are more important
+* Model is more accurate
+* It can work with features like ID’s, or categorical features with high unique counts
+
+#### Scikit learn
+Catboost provides broad integration with other packages, such as MLflow and scikit learn.
+In times, sklearn is used for
+* spliting the data set for train/test
+* calculating the metrics
+* 
+
+### Governance layer
+Governance layer is used for tracking the expertiments, run orchestrated workflows to provide repoducibility into model lifecylce management.
+
+#### MLFlow
+<img src=https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/MLFlow.jpg>
+In this project MFLow is used to track training runs (in terms of the tool - experiments), track parameters (such as model metrics on test data and hyper paraments) and artifact (such as model pickle files and other model files).
+
+#### Prefect
+<img src=https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Prefect.jpg>
+Prefect is used as a tool for execution of training code. With possibility of scheduling it will allow re-training of the model on the regular basis, to 
+
+### Exectuion layer
+
+#### Model scoring online service
+
+
+#### Model Monitoring serivce
+<img src="https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/DataDrift.jpg">
+
+
+## About Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
 It is a dataset that describing Portugal bank marketing campaigns results. Conducted campaigns were based mostly on direct phone calls, offering bank client to place a term deposit. </br>
-If after all marketing efforts client had agreed to place deposit - `target variable` marked 'yes', otherwise 'no'</br>
+If after all marketing efforts client had agreed to place `deposit` - target variable marked 'yes', otherwise 'no'</br>
 
 ### Attribute Information:
 
 Input variables:
 
 #### bank client data:
-1 - age (numeric)</br>
-2 - job : type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown') </br>
-3 - marital : marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed) </br>
-4 - education (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown') </br>
-5 - default: has credit in default? (categorical: 'no','yes','unknown') </br>
-6 - housing: has housing loan? (categorical: 'no','yes','unknown') </br>
-7 - loan: has personal loan? (categorical: 'no','yes','unknown') </br>
+`age` client's age (numeric)</br>
+`job` type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown') </br>
+`marital` marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed) </br>
+`education` (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown') </br>
+`default` has credit in default? (categorical: 'no','yes','unknown') </br>
+`housing` has housing loan? (categorical: 'no','yes','unknown') </br>
+`loan` has personal loan? (categorical: 'no','yes','unknown') </br>
 
 #### related with the last contact of the current campaign:
-8 - contact: contact communication type (categorical: 'cellular','telephone')</br>
-9 - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')</br>
-10 - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')</br>
-11 - duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no').</br> 
+`contact` contact communication type (categorical: 'cellular','telephone')</br>
+`month` last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')</br>
+`day_of_week` last contact day of the week (categorical: 'mon','tue','wed','thu','fri')</br>
+`duration` last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no').</br> 
 Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. </br>
 Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.</br>
 #### other attributes:
-12 - campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact) </br>
-13 - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted) </br>
-14 - previous: number of contacts performed before this campaign and for this client (numeric) </br>
-15 - poutcome: outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success') </br>
+`campaign` number of contacts performed during this campaign and for this client (numeric, includes last contact) </br>
+`pdays` number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted) </br>
+`previous` number of contacts performed before this campaign and for this client (numeric) </br>
+`poutcome` outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success') </br>
 
 ### Relevant Papers:
 
 S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014 </br>
-
 S. Moro, R. Laureano and P. Cortez. Using Data Mining for Bank Direct Marketing: An Application of the CRISP-DM Methodology. In P. Novais et al. (Eds.), Proceedings of the European Simulation and Modelling Conference - ESM'2011, pp. 117-121, Guimaraes, Portugal, October, 2011. EUROSIS. </br>
 
 ## Repository Structure
