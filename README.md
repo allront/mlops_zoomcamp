@@ -1,4 +1,4 @@
 # mlops_zoomcamp
-Repo for the final project of DataTalks.Club MLOps zoomcamp made by Artem Glazkov new v2
+Repo for the final project of DataTalks.Club MLOps zoomcamp made by Artem Glazkov new v3
 slania.russia@gmail.com
 
