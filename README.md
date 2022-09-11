@@ -1,5 +1,6 @@
 ![bank marketing campagin using ML](https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Deposit.jpg)
 
+
 # Capstone Project for MLOps Zoomcamp: Operationalizing Machine Learning for bank marketing campaigns
 
 
@@ -8,13 +9,13 @@ Marketing to the clients (both prospects and current) has always been a crucial 
 Accoring to the [Gartner](https://youtu.be/bXob4SMBguM?t=1824), marketing offers delivered in real time are `twise more effisient` then that made short time later, and `10X times more succeful` then made without considering current customer context.</br> 
 
 This project utilizes Machine Learning Operations (MLOps) concepts to build a system for predicting response probality for targetet markteing campaging for a bank.</br>
-Project includes model building with [Catboost](https://catboost.ai/, one of the most efficient alorythms for tabular data.</br>
+Project includes model building with [Catboost](https://catboost.ai/), one of the most efficient alorythms for tabular data.</br>
 After model training **online model scoring service** will be created  for the prediction of customers who will respond to the communication and will open a deposit in the bank. </br>
 The main focus of the project is to make a process for **end-to-end model lifecylce** including experiment tracking, pipeline automation, monitoring and re-training. <br/>
 
 ## MLOps architecture
 
-[Architechture](https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Architecture.JPG)
+<img align="center" width="1280" height="720" src="https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Architecture.JPG">
 
 ## Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
