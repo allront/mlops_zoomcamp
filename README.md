@@ -90,11 +90,9 @@ Evidenlty's reports at Graphana can be accessed by
 ## About Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
 It is a dataset that describing Portugal bank marketing campaigns results. Conducted campaigns were based mostly on direct phone calls, offering bank client to place a term deposit. </br>
-If after all marketing efforts client had agreed to place `deposit` - target variable marked 'yes', otherwise 'no'</br>
+If after all marketing efforts client had agreed to place **deposit** - target variable marked 'yes', otherwise 'no'</br>
 
 ### Attribute Information:
-
-Input variables:
 
 #### bank client data:
 **age** client's age </br>
@@ -153,17 +151,17 @@ if graphana default authorization is not working: </br>
 List of the opportunities for improvements, for example: <br/>
 
 1) Add alerting, and automated re-train when the data/target drift are detected.  </br>
-2) Add IaC or cloud execution services </br>
+2) Add IaC/cloud execution services </br>
 3) Add advanced capabilities to into model management part, such as model validation and ci/cd pipelines. </br>
 
 ## Special thanks goes to:
-* Alexey Grigorev,
-* Emeli Dral,
-* Kevin Kho, 
-* Sejal Vaidya, 
-* Cristian Javier Martinez
+:thumbsup: Alexey Grigorev
+:thumbsup: Emeli Dral
+:thumbsup: Kevin Kho
+:thumbsup: Sejal Vaidya
+:thumbsup: Cristian Javier Martinez
 
 ## Keep in touch
-Feedback is welcomed by :wave: </br>
+Feedback is welcomed by :raising_hand_man: </br>
 Artem Glazkov, slania.russia@gmail.com
 
