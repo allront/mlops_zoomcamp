@@ -1,10 +1,10 @@
 ![bank marketing campaign using ML](https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Deposit.jpg)
 
-# Capstone Project for MLOps Zoomcamp: Operationalizing Machine Learning for bank marketing campaigns
+# Capstone Project for MLOps Zoomcamp: Operationalizing Machine Learning for a bank marketing campaigns
 
 ## Objective
 Marketing to the clients (both prospects and current) has always been a crucial challenge in attaining success for financial institutions.</br>
-According to the [Gartner](https://youtu.be/bXob4SMBguM?t=1824), marketing offers delivered in real time are `twice more efficient` then that made short time later, and `10X times more successful` then that made without considering current customer context.</br> 
+According to the [Gartner](https://youtu.be/bXob4SMBguM?t=1824), marketing offers delivered in real time are **twice more efficient** then that made short time later, and **10X times more successful** then that made without considering current customer context.</br> 
 
 This project utilizes Machine Learning Operations (MLOps) methods to build a system for predicting bank client probability to respond to marketing campaign made by different communication channels.</br>
 Project includes model building with [Catboost](https://catboost.ai/), one of the most efficient algorithms for tabular data.</br>
@@ -19,7 +19,8 @@ MLops architecture for the project consists of three layers: </br>
 * model development </br>
 * model governance </br>
 * model execution </br>
-The technologies used for each layer are described bellow </br>
+
+Technologies used for each layer are described bellow </br>
 
 ### Development layer
 Development layer is used for acquiring training data for a model and model creation.
@@ -59,7 +60,7 @@ Governance layer is used for tracking the experiments, run orchestrated workflow
 <img src=https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/MLFlow.jpg>
 
 In this project MFLow is used to track training runs (in terms of the tool - experiments), track parameters (such as model metrics on test data and hyper paraments) and artifact (such as model pickle file). </br>
-MLFlow web UI is located at `localhost:3000`
+After starting, MLFlow web UI is located at `http://localhost:3000`
 
 #### Prefect
 <img src=https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Prefect.jpg>
@@ -80,13 +81,11 @@ When you run `docker-compose`, it builds image and runs several container.
 
 [Evidently.Ai](https://evidentlyai.com/) is used for tracking model performance after deployment. </br>
 It tracks data drift from features, consumed by models and display information at the [graphana](https://grafana.com/) dashbords. </br>
+Reference data for data drift monitoring is placed at `.\evidently_service\datasets\test.csv` </br>
+Monitoring configuration is placed at `.\evidently_service\config.yaml` </br>
 
-* Scoring simulation can be done using using</br>
-`model_scoring_simulation.py`
-* or run single request using </br>
-`test_request.py`
-* to access Evidenlty's reports Graphana is available by
-`localhost:3000`
+Evidenlty's reports at Graphana can be accessed by
+`http://localhost:3000`
 
 ## About Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
@@ -98,26 +97,26 @@ If after all marketing efforts client had agreed to place `deposit` - target var
 Input variables:
 
 #### bank client data:
-`age` client's age (numeric)</br>
-`job` type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown') </br>
-`marital` marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed) </br>
-`education` (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown') </br>
-`default` has credit in default? (categorical: 'no','yes','unknown') </br>
-`housing` has housing loan? (categorical: 'no','yes','unknown') </br>
-`loan` has personal loan? (categorical: 'no','yes','unknown') </br>
+**age** client's age </br>
+**job** type of job </br>
+**marital** marital status</br>
+**education** clients education level </br>
+**default** has credit in default?  </br>
+**housing** has housing loan? </br>
+**loan** has personal loan? </br>
 
 #### related with the last contact of the current campaign:
-`contact` contact communication type (categorical: 'cellular','telephone')</br>
-`month` last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')</br>
-`day_of_week` last contact day of the week (categorical: 'mon','tue','wed','thu','fri')</br>
-`duration` last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no').</br> 
+**contact** contact communication type </br>
+**month** last contact month of year</br>
+**day_of_week** last contact day of the week </br>
+**duration** last contact duration, in seconds. Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no').</br> 
 Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. </br>
 Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.</br>
 #### other attributes:
-`campaign` number of contacts performed during this campaign and for this client (numeric, includes last contact) </br>
-`pdays` number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted) </br>
-`previous` number of contacts performed before this campaign and for this client (numeric) </br>
-`poutcome` outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success') </br>
+**campaign** number of contacts performed during this campaign and for this client </br>
+**pdays** number of days that passed by after the client was last contacted from a previous campaign</br>
+**previous** number of contacts performed before this campaign and for this client </br>
+**poutcome** outcome of the previous marketing campaign  </br>
 
 ### Relevant Papers:
 
@@ -129,11 +128,11 @@ Thus, this input should only be included for benchmark purposes and should be di
 
 * ```Git clone``` this repository to local pc or virtual pc on the cloud
 
-* Run ```python -n pipenv shell``` to install needed versions of the packages
+* Run ```python -m pipenv shell``` to install needed versions of the packages
 
 * Run ```docker-compose up --build``` to start the prediction service as well as Graphana, Evidently and Prometeus
 
-* Scoring can be simulated by running ```model_scoring_simulation.py``` script
+* Model scoring can be simulated by running ```model_scoring_simulation.py``` or ```test_request.py``` scripts 
 
 * Training the model could be started by ```train.py``` script
 
@@ -158,13 +157,13 @@ List of the opportunities for improvements, for example: <br/>
 3) Add advanced capabilities to into model management part, such as model validation and ci/cd pipelines. </br>
 
 ## Special thanks goes to:
-Alexey Grigorev,
-Emeli Dral,
-Kevin Kho, 
-Sejal Vaidya, 
-Cristian Javier Martinez
+* Alexey Grigorev,
+* Emeli Dral,
+* Kevin Kho, 
+* Sejal Vaidya, 
+* Cristian Javier Martinez
 
 ## Keep in touch
-Feedback is welcomed by </br>
+Feedback is welcomed by :wave: </br>
 Artem Glazkov, slania.russia@gmail.com
 
