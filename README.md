@@ -24,18 +24,20 @@ If after all marketing efforts client had agreed to place deposit - target varia
 
 Input variables:
 #### bank client data:
-1 - age (numeric)
-2 - job : type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown')
-3 - marital : marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed)
-4 - education (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown')
-5 - default: has credit in default? (categorical: 'no','yes','unknown')
-6 - housing: has housing loan? (categorical: 'no','yes','unknown')
-7 - loan: has personal loan? (categorical: 'no','yes','unknown')
+1 - age (numeric)</br>
+2 - job : type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown') </br>
+3 - marital : marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed) </br>
+4 - education (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown') </br>
+5 - default: has credit in default? (categorical: 'no','yes','unknown') </br>
+6 - housing: has housing loan? (categorical: 'no','yes','unknown') </br>
+7 - loan: has personal loan? (categorical: 'no','yes','unknown') </br>
 #### related with the last contact of the current campaign:
-8 - contact: contact communication type (categorical: 'cellular','telephone')
-9 - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')
-10 - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')
-11 - duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no'). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.
+8 - contact: contact communication type (categorical: 'cellular','telephone')</br>
+9 - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')</br>
+10 - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')</br>
+11 - duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no').</br> 
+Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. 
+Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.</br>
 #### other attributes:
 12 - campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)
 13 - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
@@ -49,8 +51,34 @@ S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of
 S. Moro, R. Laureano and P. Cortez. Using Data Mining for Bank Direct Marketing: An Application of the CRISP-DM Methodology. In P. Novais et al. (Eds.), Proceedings of the European Simulation and Modelling Conference - ESM'2011, pp. 117-121, Guimaraes, Portugal, October, 2011. EUROSIS.
 
 
+## Reproducing steps
+#### Step 1
+```Git clone``` this repository to local pc or virtual pc on the cloud
+
+#### Step 2
+```Git clone``` this repository to local pc or virtual pc on the cloud
 
 
+### useful commands
+
+start prefect:
+```prefect orion start --host 0.0.0.0```
+
+start MLFlow server for tracking and model registry:
+```mlflow server --backend-store-uri sqlite:///mlruns.db  --default-artifact-root artifacts```
+
+if graphana authorization is not working
+```grafana-cli admin reset-admin-password admin```
+
+
+## Area of projcet improvement
+List of the oppoptunities for improvements, for example: <br/>
+
+1) Add alerting, and automated re-train when the data/target drift are detected. 
+2) Add IaC or cloud execution services
+3) Add advanced capabilites to into model management part, such as model validation and ci/cd pipelines.
+
+## Special thanks goes to:
 
 ## Keep in touch
 Artem Glazkov, slania.russia@gmail.com
