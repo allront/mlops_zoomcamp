@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+numpy = "==1.23.0"
+pandas = "==1.4.3"
+scikit-learn = "==1.1.2"
+matplotlib = "*"
+seaborn = "*"
+requests = "*"
+mlflow = "*"
+gunicorn = "*"
+pyarrow = "*"
+evidently = "*"
+pymongo = "*"
+prefect = "==2.b10"
+pylint = "*"
+pytest = "*"
+catboost ="*"
+
+[dev-packages]
+requests = "*"
+black = "*"
+isort = "*"
+
+[requires]
+python_version = "3.9"

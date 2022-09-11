@@ -1,0 +1,6 @@
+age,job,marital,education,default,balance,housing,loan,contact,day,month,campaign,pdays,previous,poutcome,predicion
+41,services,married,unknown,no,88,yes,no,cellular,11,may,1,336,2,failure,0.0
+56,technician,married,secondary,no,1938,no,yes,cellular,26,feb,1,192,4,success,1.0
+30,services,single,secondary,no,245,no,yes,cellular,8,jul,2,-1,0,unknown,0.0
+34,management,single,tertiary,no,1396,yes,no,cellular,17,jul,1,-1,0,unknown,0.0
+29,technician,single,secondary,no,-13,yes,no,cellular,14,may,3,-1,0,unknown,0.0

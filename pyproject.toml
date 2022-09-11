@@ -1,0 +1,20 @@
+[tool.pylint.messages_control]
+
+max-line-length = 120
+
+disable = [
+    "missing-function-docstring",
+    "invalid-name", 
+    "redefined-builtin",
+    "missing-class-docstring",
+    "assignment-from-no-return"
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+skip-string-normalization = true
+
+[tool.isort]
+multi_line_output = 3
+length_sort = true

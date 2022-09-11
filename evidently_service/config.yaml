@@ -1,0 +1,34 @@
+datasets:
+  responce:
+    column_mapping:
+      categorical_features:
+        - 'job'
+        - 'marital'
+        - 'education'
+        - 'default'
+        - 'housing'
+        - 'loan'
+        - 'contact'
+        - 'month'
+        - 'poutcome'
+      numerical_features:
+        - 'age'
+        - 'balance'
+        - 'day'
+        - 'campaign'
+        - 'previous'
+    data_format:
+      header: true
+      separator: ','
+    monitors:
+      - data_drift
+      - classification_performance
+      - cat_target_drift
+    reference_file: ./datasets/test.csv
+service:
+  calculation_period_sec: 2
+  min_reference_size: 30
+  moving_reference: false
+  datasets_path: datasets
+  use_reference: true
+  window_size: 5
