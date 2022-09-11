@@ -15,7 +15,7 @@ The main focus of the project is to make a process for **end-to-end model lifecy
 
 ## MLOps architecture
 
-<img align="center" width="1280" height="720" src="https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Architecture.JPG">
+<img src="https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/Architecture.JPG">
 
 ## Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
