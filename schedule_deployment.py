@@ -133,9 +133,6 @@ mlflow.set_experiment("responce-prediction-experiment")
 @flow(task_runner=SequentialTaskRunner())
 def run():
     with mlflow.start_run() as run:
-
-    with mlflow.start_run() as run:
-
         
         client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
         run_id = run.info.run_id

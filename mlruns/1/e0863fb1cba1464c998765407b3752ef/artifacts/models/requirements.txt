@@ -1,0 +1,8 @@
+mlflow
+catboost==1.0.6
+cloudpickle==2.1.0
+ipywidgets==7.7.0
+mypy-extensions==0.4.3
+scikit-learn==1.1.1
+typing-extensions==4.2.0
+xgboost==1.6.1

@@ -2,7 +2,6 @@ import pickle
 import random
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from sklearn.metrics import f1_score, recall_score, accuracy_score, precision_score, roc_auc_score
 from sklearn.model_selection import train_test_split
@@ -14,19 +13,22 @@ from mlflow.tracking import MlflowClient
 from prefect import flow, task
 from prefect.task_runners import SequentialTaskRunner
 
+# connect to MLFlow tracking server
 MLFLOW_TRACKING_URI = "sqlite:///mlruns.db"
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
+# creating new mlfow experiment if the experiment not exists
 try:
-  mlflow.create_experiment("responce-prediction-experiment",
+    mlflow.create_experiment("responce-prediction-experiment",
                            tags={"developer": "Artem Glazkov", "project": "DataTalksClub Zoomcamp"})
 except:
-  mlflow.set_experiment("responce-prediction-experiment")
+    mlflow.set_experiment("responce-prediction-experiment")
 else:
-  mlflow.set_experiment("responce-prediction-experiment")
+    mlflow.set_experiment("responce-prediction-experiment")
 
+# remove comments, if you want to run this script as a Prefect flow
 
-@task
+#@task()
 def get_training_data(url):
     '''
     Downloading data from cloud data storage
@@ -41,16 +43,16 @@ def get_training_data(url):
     y = df["target"]
 
     print("training dataset is ready")
-    
+  
     return X,y
     
-@task
+#@task
 def train_model(X_train, y_train, X_val, y_val, random_state, cat_features):
     '''
     Using gradient boosting classifier by catboost for training ML model.
     Providing list of categorical variables
     '''
-    
+
     iterations = 200
     learning_rate = 0.1
     l2_leaf_reg = 3
@@ -58,7 +60,7 @@ def train_model(X_train, y_train, X_val, y_val, random_state, cat_features):
     random_strength = 1
     one_hot_max_size = 2
     leaf_estimation_method = 'Newton'
-    
+
     model = CatBoostClassifier(
         random_seed=random_state,
         iterations=iterations,
@@ -76,7 +78,7 @@ def train_model(X_train, y_train, X_val, y_val, random_state, cat_features):
         eval_set=(X_val, y_val),
         plot=False
     )
-    
+
     mlflow.log_params({
         "iterations": iterations, 
         "learning_rate": learning_rate,
@@ -86,12 +88,12 @@ def train_model(X_train, y_train, X_val, y_val, random_state, cat_features):
         "one_hot_max_size": one_hot_max_size,
         "leaf_estimation_method": leaf_estimation_method
     })
-    
+
     print("training is complete")
-    
+
     return model
 
-@task
+#@task
 def calculate_metrics(model, X_test, test_target):
     '''
     Calculate accuracy, precision, recall, f1 and ROC AuC score metrics for a test data
@@ -110,12 +112,12 @@ def calculate_metrics(model, X_test, test_target):
         "f1": f1,
         "roc_auc":roc_auc,
     }
-    
+
     print ("metrics calculation finished")
-    
+
     return metrics_dict
 
-@task
+#@task
 def save_model_file (model):
     '''
     Saves the new version of a model to the prediction_service/model.pkl
@@ -123,7 +125,7 @@ def save_model_file (model):
     with open('prediction_service/model.pkl', 'wb') as f_out:
         pickle.dump(model, f_out)
 
-@task
+#@task
 def save_test_dataset(X_test):
     '''
     Rewrites test dataset for monitoring service in ./evidently_service/datasets/
@@ -133,10 +135,9 @@ def save_test_dataset(X_test):
     print("dataset is saved")
 
 
-@flow(task_runner=SequentialTaskRunner())
+#@flow (task_runner=SequentialTaskRunner())
 def run():
     with mlflow.start_run() as run:
-
         
         client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
         run_id = run.info.run_id
@@ -168,7 +169,9 @@ def run():
 
         save_model_file(model)
         mlflow.sklearn.log_model(model, artifact_path="models")
-        mlflow.register_model(model_uri=model_uri, name=model_name, tags={"developer": "Artem Glazkov", "project": "DataTalksClub Zoomcamp", "business area": "responce prediction"})
+        mlflow.register_model(model_uri=model_uri, name=model_name, 
+            tags={"developer": "Artem Glazkov", "project": "DataTalksClub Zoomcamp", "business area": "responce prediction"}
+            )
 
         client.transition_model_version_stage(
             name=model_name,
@@ -177,7 +180,6 @@ def run():
             archive_existing_versions=False,
         )
         save_test_dataset(X_val)
-        
         
 if __name__ == '__main__':
     run()

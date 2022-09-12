@@ -45,7 +45,6 @@ def save_to_db(object, pred):
 def send_to_evidently_service(object, pred):
     obj = object.copy()
     obj['prediction'] = pred
-#    requests.post(f"{EVIDENTLY_SERVICE_ADDRESS}/iterate/car", json=[obj])
     requests.post(f"{EVIDENTLY_SERVICE_ADDRESS}/iterate/responce", json=[obj])
 
 if __name__ == "__main__":

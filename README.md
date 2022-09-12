@@ -20,7 +20,7 @@ MLops architecture for the project consists of three layers: </br>
 * model governance </br>
 * model execution </br>
 
-Technologies used for each layer are described bellow </br>
+Technologies used for each layer are described bellow. </br>
 
 ### Development layer
 Development layer is used for acquiring training data for a model and model creation.
@@ -46,7 +46,7 @@ Here is the CatBoost space highlighted:
 
 #### Scikit learn
 Catboost provides broad integration with other packages, such as MLflow and scikit learn.
-In meanwhile, sklearn is used for
+In meanwhile, sklearn is used for:
 * splitting the data set for train/test
 * calculating model performance the metrics such as accuracy, f1, roc_auc
 
@@ -60,6 +60,7 @@ Governance layer is used for tracking the experiments, run orchestrated workflow
 <img src=https://raw.githubusercontent.com/allront/mlops_zoomcamp/main/images/MLFlow.jpg>
 
 In this project MFLow is used to track training runs (in terms of the tool - experiments), track parameters (such as model metrics on test data and hyper paraments) and artifact (such as model pickle file). </br>
+
 After starting, MLFlow web UI is located at `http://localhost:3000`
 
 #### Prefect
@@ -67,6 +68,7 @@ After starting, MLFlow web UI is located at `http://localhost:3000`
 
 Prefect is used as a tool for orchestrating execution of training code. 
 With possibility of scheduling, it will allow re-training of the model on the regular basis and maintain model performance on high level when the customer behavior changes and trends, captured truing previous model's run will became out-of-date.
+
 After starting, Prefect service UI can be accessed using `http://localhost:4200/`
 
 ### Execution layer
@@ -84,8 +86,7 @@ It tracks data drift from features, consumed by models and display information a
 Reference data for data drift monitoring is placed at `.\evidently_service\datasets\test.csv` </br>
 Monitoring configuration is placed at `.\evidently_service\config.yaml` </br>
 
-Evidenlty's reports at Graphana can be accessed by
-`http://localhost:3000`
+Evidenlty's reports at Graphana can be accessed by `http://localhost:3000`
 
 ## About Dataset
 Data source: https://archive.ics.uci.edu/ml/datasets/bank+marketing
@@ -120,21 +121,21 @@ Thus, this input should only be included for benchmark purposes and should be di
 
 * S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014 </br>
 
-* S. Moro, R. Laureano and P. Cortez. Using Data Mining for Bank Direct Marketing: An Application of the CRISP-DM Methodology. In P. Novais et al. (Eds.), Proceedings of the European Simulation and Modelling Conference - ESM'2011, pp. 117-121, Guimaraes, Portugal, October, 2011. EUROSIS. </br>
+* S. Moro, R. Laureano and P. Cortez. Using Data Mining for Bank Direct Marketing: An Application of the CRISP-DM Methodology. In P. Novais et al. (Eds.), Proceedings of the European Simulation and Modelling Conference - ESM'2011, pp. 117-121, Guimaraes, Portugal, October, 2011 </br>
 
 ## Reproducing steps
 
 * ```Git clone``` this repository to local pc or virtual pc on the cloud
 
-* Run ```python -m pipenv shell``` to install needed versions of the packages
+* Run ```pipenv shell``` to install needed versions of the packages
 
 * Run ```docker-compose up --build``` to start the prediction service as well as Graphana, Evidently and Prometeus
 
-* Model scoring can be simulated by running ```model_scoring_simulation.py``` or ```test_request.py``` scripts 
+* Model scoring can be simulated by running ```model_scoring_simulation.py``` or ```test_request.py``` scripts
 
-* Training the model could be started by ```train.py``` script
+* Training the model could be started by ```train.py``` script. In case you want to use prefect, uncomment tasks and flow decorators
 
-* Regular re-training can be started by ```schedule_deployment.py```. This script will schedule prefect flow that will place new model into MLFlow model registry.
+* Regular re-training can be started by ```schedule_deployment.py```. This script will schedule prefect flow that will place new model into MLFlow model registry
 
 ### Useful commands
 
@@ -148,13 +149,13 @@ if graphana default authorization is not working: </br>
 ```grafana-cli admin reset-admin-password admin```
 
 ## Area of projcet improvement
-List of the opportunities for improvements, for example: <br/>
+List of the opportunities for improvements: <br/>
 
-1) Add alerting, and automated re-train when the data/target drift are detected.  </br>
-2) Add IaC/cloud execution services </br>
-3) Add advanced capabilities to into model management part, such as model validation and ci/cd pipelines. </br>
+1) Add alerting, and automated re-train when the data drift/target drift/model accuracy degradation are detected.  </br>
+2) Add IaC/cloud execution services. </br>
+3) Add advanced capabilities to into model management part, such as model validation, ci/cd pipelines. </br>
 
-## Special thanks goes to:
+## Special thanks go to
 :thumbsup: Alexey Grigorev
 :thumbsup: Emeli Dral
 :thumbsup: Kevin Kho
