@@ -31,7 +31,7 @@ Training data is placed into cloud storage, and accessed each time training runs
 Data that has been downloaded from cloud data should be compared to expected by asserting function. This test is placed into file `test_function.py`
 
 #### Yandex Catboost
-<img src=https://i0.wp.com/neptune.ai/wp-content/uploads/When-to-Choose-CatBoost-Over-XGBoost-or-LightGBM-Practical-Guide_13.png width=50% height=50%>
+<img src=https://camo.githubusercontent.com/978ad57e1fba31f89403bdc139b9dbaffe70d32e88e31e4017897d902955dcad/687474703a2f2f73746f726167652e6d64732e79616e6465782e6e65742f6765742d646576746f6f6c732d6f70656e736f757263652f3235303835342f636174626f6f73742d6c6f676f2e706e67 width=50% height=50%>
 CatBoost uses ordered target encoding, which essentially allows to keep the feature/column in its original state, allowing to collaborate with ml engineers and software engineers more easily. 
 Thus, there is no reason to worry about matching one-hot-encodings of several features, and interpret the features as to how they were intended. 
 Not only that, but this encoding allows for more important feature importance.
